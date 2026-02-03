@@ -62,3 +62,8 @@ Manasvi Parab
 02/02/2026
 
 ## output: 
+<img width="1875" height="804" alt="Image" src="https://github.com/user-attachments/assets/b5e9653a-c468-4114-b850-11f17054774d" />
+<img width="1149" height="760" alt="Image" src="https://github.com/user-attachments/assets/a5cd0200-b5a2-4c57-a3a2-bbae46f42c52" />
+<img width="907" height="491" alt="Image" src="https://github.com/user-attachments/assets/88cc7cb7-915e-4ad8-9c9e-5d2d13ab43a6" />
+<img width="833" height="380" alt="Image" src="https://github.com/user-attachments/assets/e8fd6c64-e261-4f31-a860-9a8360341432" />
+<img width="1341" height="739" alt="Image" src="https://github.com/user-attachments/assets/91561ee4-1997-4bf0-b3ca-a3965b843d27" />
