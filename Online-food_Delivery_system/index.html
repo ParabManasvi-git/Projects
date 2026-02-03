@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodExpress - Order Food Online</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <div class="login-box">
+            <h1>🍕 FoodExpress</h1>
+            <p>Welcome back! Please login to continue</p>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+            <div class="signup-link">
+                Don't have an account? <a href="#" onclick="showSignup()">Sign up</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="mainApp" class="hidden">
+        <div class="container">
+            <header>
+                <div class="logo">🍕 FoodExpress</div>
+                <div class="header-right">
+                    <span class="user-info" id="userInfo"></span>
+                    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+                    <div class="cart-icon" onclick="toggleCart()">
+                        🛒 Cart
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="filters">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterMenu('all')">All</button>
+                    <button class="filter-btn" onclick="filterMenu('pizza')">Pizza</button>
+                    <button class="filter-btn" onclick="filterMenu('burger')">Burgers</button>
+                    <button class="filter-btn" onclick="filterMenu('pasta')">Pasta</button>
+                    <button class="filter-btn" onclick="filterMenu('dessert')">Desserts</button>
+                </div>
+            </div>
+
+            <div class="menu-grid" id="menuGrid"></div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Your Cart</h2>
+                <span class="close-btn" onclick="toggleCart()">&times;</span>
+            </div>
+            <div id="cartItems"></div>
+            <div class="cart-total">
+                Total: $<span id="cartTotal">0.00</span>
+            </div>
+            <button class="checkout-btn" onclick="proceedToPayment()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Payment Page -->
+    <div id="paymentPage" class="hidden">
+        <div class="container">
+            <div class="payment-container">
+                <div class="payment-header">
+                    <h2>💳 Payment</h2>
+                    <p>Complete your order</p>
+                </div>
+
+                <div class="order-summary">
+                    <h3>Order Summary</h3>
+                    <div id="paymentSummary"></div>
+                    <div class="summary-total">
+                        <span>Total Amount:</span>
+                        <span>$<span id="paymentTotal">0.00</span></span>
+                    </div>
+                </div>
+
+                <div class="payment-methods">
+                    <h3>Select Payment Method</h3>
+                    <label class="payment-method" onclick="selectPayment('card')">
+                        <input type="radio" name="payment" value="card" checked>
+                        <div class="payment-method-info">
+                            <span class="payment-icon">💳</span>
+                            <div>
+                                <strong>Credit/Debit Card</strong><br>
+                                <small style="color: #666;">Pay securely with your card</small>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="payment-method" onclick="selectPayment('upi')">
+                        <input type="radio" name="payment" value="upi">
+                        <div class="payment-method-info">
+                            <span class="payment-icon">📱</span>
+                            <div>
+                                <strong>UPI Payment</strong><br>
+                                <small style="color: #666;">Pay via UPI apps</small>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="payment-method" onclick="selectPayment('cod')">
+                        <input type="radio" name="payment" value="cod">
+                        <div class="payment-method-info">
+                            <span class="payment-icon">💵</span>
+                            <div>
+                                <strong>Cash on Delivery</strong><br>
+                                <small style="color: #666;">Pay when you receive</small>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+
+                <div id="cardDetails" class="card-details show">
+                    <h3 style="margin-bottom: 15px;">Card Details</h3>
+                    <div class="form-group">
+                        <label>Card Number</label>
+                        <input type="text" placeholder="1234 5678 9012 3456" maxlength="19">
+                    </div>
+                    <div class="form-group">
+                        <label>Cardholder Name</label>
+                        <input type="text" placeholder="John Doe">
+                    </div>
+                    <div class="card-row">
+                        <div class="form-group">
+                            <label>Expiry Date</label>
+                            <input type="text" placeholder="MM/YY" maxlength="5">
+                        </div>
+                        <div class="form-group">
+                            <label>CVV</label>
+                            <input type="password" placeholder="123" maxlength="3">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="back-btn" onclick="backToMenu()">Back to Menu</button>
+                    <button class="checkout-btn pay-btn" onclick="completePayment()">Complete Payment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        <h2>✅ Order Placed Successfully!</h2>
+        <p>Your order will be delivered in 30-45 minutes.</p>
+        <p style="color: #666; margin-top: 10px;">Order ID: <strong id="orderId"></strong></p>
+        <button class="checkout-btn" onclick="closeSuccess()">Continue Shopping</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
